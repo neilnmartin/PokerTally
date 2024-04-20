@@ -64,3 +64,24 @@ yarn-error.log
 
 # testing
 /coverage
+
+# Env
+.env*
+!.env.example
+
+# Misc.
+.vscode/
+.sublime*
+.idea/
+
+# Zip files
+*.zip
+*.tar.gz
+
+# Logs, caches
+*.log
+*.cache
+
+# Xcode workspace
+*.xcworkspace/
+!*.xcworkspace/contents.xcworkspacedata
