@@ -88,7 +88,7 @@ const BuyInScreen: React.FC<BuyInScreenProps> = () => {
                     ) : (
                         <Text style={styles.buyInDisplay} onPress={onInputButtonPress}>{buyInAmount}</Text>
                     )}
-                    <Button
+                    <CustomButton
                         title={isEditingBuyInAmount ? "✓" : "✏️"}
                         onPress={onInputButtonPress}
                     />
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     },
     buyInInput: {
         borderBottomWidth: 1,
-        borderBottomColor: '#fff',
+        borderBottomColor: '#37393b',
         padding: 5,
         width: 90,
         marginRight: 10,
@@ -145,8 +145,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
     },
     buyInDisplay: {
-        borderBottomWidth: 1,
-        borderBottomColor: '#fff',
         padding: 5,
         width: 70,
         color: '#fff',
@@ -157,9 +155,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '600',
     },
-
     scrollView: {
-        flex: 1,
         padding: 10,
     },
     playerRow: {

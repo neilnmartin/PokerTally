@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TextInput, StyleSheet, Button, ScrollView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, Button, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackScreenProps, NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -82,32 +82,38 @@ const ChipCountScreen: React.FC<ChipCountScreenProps> = () => {
             colors={['#262829', '#1f2021']}
             style={styles.container}
         >
-            <ScrollView style={styles.scrollContainer}>
-                {players.map((player, index) => (
-                    <View key={index} style={styles.playerRow}>
-                        <Text style={styles.playerName}>{player.name}</Text>
-                        <View style={styles.rightContainer}>
-                            <Text style={styles.dollarText}>$</Text>
-                            {player.isEditing ? (
-                                <TextInput
-                                    style={styles.input}
-                                    value={chipCounts[player.name]}
-                                    onChangeText={(value) => handleChipChange(player.name, value)}
-                                    keyboardType="numeric"
+            <KeyboardAvoidingView
+                style={{ flex: 1 }} // Ensure KeyboardAvoidingView takes up full space
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={Platform.OS === "ios" ? 40 : 0}
+            >
+                <ScrollView style={styles.scrollContainer}>
+                    {players.map((player, index) => (
+                        <View key={index} style={styles.playerRow}>
+                            <Text style={styles.playerName}>{player.name}</Text>
+                            <View style={styles.rightContainer}>
+                                <Text style={styles.dollarText}>$</Text>
+                                {player.isEditing ? (
+                                    <TextInput
+                                        style={styles.input}
+                                        value={chipCounts[player.name]}
+                                        onChangeText={(value) => handleChipChange(player.name, value)}
+                                        keyboardType="numeric"
+                                    />
+                                ) : (
+                                    <Text style={styles.displayCount} onPress={() => onInputButtonPress(player, index)}>{formatCentsToDollars(player.chipCountInCents)}</Text>
+                                )}
+                                <Button
+                                    title={player.isEditing ? "✓" : "✏️"}
+                                    onPress={() => onInputButtonPress(player, index)}
                                 />
-                            ) : (
-                                <Text style={styles.displayCount} onPress={() => onInputButtonPress(player, index)}>{formatCentsToDollars(player.chipCountInCents)}</Text>
-                            )}
-                            <Button
-                                title={player.isEditing ? "✓" : "✏️"}
-                                onPress={() => onInputButtonPress(player, index)}
-                            />
+                            </View>
                         </View>
-                    </View>
-                ))}
-            </ScrollView>
-            <CustomButton title="Save All" onPress={saveAllChipCounts} />
-            <CustomButton title="Go to Summary" onPress={() => navigation.navigate('Summary')} />
+                    ))}
+                </ScrollView>
+                <CustomButton title="Save All" onPress={saveAllChipCounts} />
+                <CustomButton title="Go to Summary" onPress={() => navigation.navigate('Summary')} />
+            </KeyboardAvoidingView>
         </LinearGradient>
     );
 };

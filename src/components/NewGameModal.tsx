@@ -21,8 +21,9 @@ const NewGameModal = ({ visible, onClose, onConfirm }: NewGameModalDialogProps) 
                 <View style={styles.modalView}>
                     <Text style={styles.modalText}>Are You Sure?</Text>
                     <Text style={styles.modalDescription}>
-                        {`Starting a new game will reset game info. \nIt will keep the player list.`}
+                        Starting a new game will reset game info.
                     </Text>
+                    <Text style={styles.modalDescription}>It will keep the player list.</Text>
                     <View style={styles.buttonRow}>
                         <CustomButton title="Cancel" onPress={onClose} />
                         <CustomButton title="New Game" onPress={onConfirm} />
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
     },
     modalDescription: {
         // marginBottom: 20,
-        padding: 10,
+        padding: 8,
         textAlign: "center",
         color: '#fff'
     },
